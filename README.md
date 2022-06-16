@@ -2,6 +2,7 @@
 基于kitex+gin+gorm实现的青春版抖音项目
 # 运行方法
 ```
+#运行http接口
 cd cmd/api
 go run main.go router.go
 #运行user服务
