@@ -1,5 +1,12 @@
 # Kitex-dousheng
 基于kitex+gin+gorm实现的青春版抖音项目
+
+# 项目架构如下
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/UML.jpg" width="500px">
+
+# 数据库E-R图
+![dousheng](https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/dousheng.svg)
+
 # 运行方法
 ```
 #运行http接口
