@@ -57,7 +57,7 @@ func initUserRpc() {
 }
 
 func Register(ctx context.Context, req *user.DouyinUserRegisterRequest) error {
-	resp, err := userClient.Register(ctx, req)
+	resp, err := userClient.UserRegister(ctx, req)
 	if err != nil {
 		return err
 	}
