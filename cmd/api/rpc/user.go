@@ -56,25 +56,34 @@ func initUserRpc() {
 	userClient = c
 }
 
-func Register(ctx context.Context, req *user.DouyinUserRegisterRequest) error {
+func Register(ctx context.Context, req *user.DouyinUserRegisterRequest) (*user.DouyinUserRegisterResponse, error) {
 	resp, err := userClient.UserRegister(ctx, req)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	if resp.StatusCode != 0 {
-		return errno.NewErrNo(resp.StatusCode, *resp.StatusMsg)
+		return nil, errno.NewErrNo(resp.StatusCode, *resp.StatusMsg)
 	}
-	return nil
+	return resp, nil
 }
 
-// // CheckUser check user info
-// func CheckUser(ctx context.Context, req *userdemo.CheckUserRequest) (int64, error) {
-// 	resp, err := userClient.CheckUser(ctx, req)
-// 	if err != nil {
-// 		return 0, err
-// 	}
-// 	if resp.BaseResp.StatusCode != 0 {
-// 		return 0, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
-// 	}
-// 	return resp.UserId, nil
-// }
+func Login(ctx context.Context, req *user.DouyinUserLoginRequest) (int64, error) {
+	resp, err := userClient.UserLogin(ctx, req)
+	if err != nil {
+		return 0, err
+	}
+	if resp.StatusCode != 0 {
+		return 0, errno.NewErrNo(resp.StatusCode, *resp.StatusMsg)
+	}
+	return resp.UserId, nil
+}
+func UserInfo(ctx context.Context, req *user.DouyinUserRequest) (*user.DouyinUserResponse, error) {
+	resp, err := userClient.UserInfo(ctx, req)
+	if err != nil {
+		return nil, err
+	}
+	if resp.StatusCode != 0 {
+		return nil, errno.NewErrNo(resp.StatusCode, *resp.StatusMsg)
+	}
+	return resp, err
+}

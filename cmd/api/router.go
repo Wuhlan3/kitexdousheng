@@ -5,6 +5,7 @@ import (
 	// "dousheng/middleware"
 	"github.com/gin-gonic/gin"
 	"kitexdousheng/cmd/api/handlers"
+	"kitexdousheng/pkg/middleware"
 	//"path"
 )
 
@@ -22,9 +23,9 @@ func initRouter(r *gin.Engine) {
 
 	// basic apis
 	// apiRouter.GET("/feed/", controller.Feed)
-	// apiRouter.GET("/user/", controller.UserInfo)
+	apiRouter.GET("/user/", middleware.AuthMiddleware(), handlers.UserInfo)
 	apiRouter.POST("/user/register/", handlers.Register)
-	// apiRouter.POST("/user/login/", controller.Login)
+	apiRouter.POST("/user/login/", handlers.Login)
 	// apiRouter.POST("/publish/action/", controller.Publish)
 	// apiRouter.GET("/publish/list/", controller.PublishList)
 
