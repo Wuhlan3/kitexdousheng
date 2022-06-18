@@ -14,6 +14,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+//保留一下
 type RegisterResponse struct {
 	*user.DouyinUserRegisterResponse
 	Token string `json:"token"`
