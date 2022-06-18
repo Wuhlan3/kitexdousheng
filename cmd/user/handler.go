@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+	"kitexdousheng/cmd/user/service"
 	"kitexdousheng/kitex_gen/user"
+	"kitexdousheng/pkg/errno"
 )
 
 // UserSrvImpl implements the last service interface defined in the IDL.
@@ -17,7 +19,18 @@ func (s *UserSrvImpl) UserRegister(ctx context.Context, req *user.DouyinUserRegi
 // UserLogin implements the UserSrvImpl interface.
 func (s *UserSrvImpl) UserLogin(ctx context.Context, req *user.DouyinUserLoginRequest) (resp *user.DouyinUserLoginResponse, err error) {
 	// TODO: Your code here...
-	return
+	userId, err := service.UserLogin(req)
+	if err != nil {
+		return &user.DouyinUserLoginResponse{
+			StatusCode: errno.ServiceErr.ErrCode,
+			StatusMsg:  &errno.ServiceErr.ErrMsg,
+		}, nil
+	}
+	return &user.DouyinUserLoginResponse{
+		UserId:     userId,
+		StatusCode: errno.Success.ErrCode,
+		StatusMsg:  &errno.Success.ErrMsg,
+	}, nil
 }
 
 // UserInfo implements the UserSrvImpl interface.
