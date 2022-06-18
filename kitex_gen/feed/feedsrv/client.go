@@ -11,8 +11,7 @@ import (
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
-	GetUserFeed(ctx context.Context, Req *feed.DouyinFeedRequest, callOptions ...callopt.Option) (r *feed.DouyinFeedResponse, err error)
-	GetVideoById(ctx context.Context, Req *feed.VideoIdRequest, callOptions ...callopt.Option) (r *feed.Video, err error)
+	Feed(ctx context.Context, Req *feed.DouyinFeedRequest, callOptions ...callopt.Option) (r *feed.DouyinFeedResponse, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -44,12 +43,7 @@ type kFeedSrvClient struct {
 	*kClient
 }
 
-func (p *kFeedSrvClient) GetUserFeed(ctx context.Context, Req *feed.DouyinFeedRequest, callOptions ...callopt.Option) (r *feed.DouyinFeedResponse, err error) {
+func (p *kFeedSrvClient) Feed(ctx context.Context, Req *feed.DouyinFeedRequest, callOptions ...callopt.Option) (r *feed.DouyinFeedResponse, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetUserFeed(ctx, Req)
-}
-
-func (p *kFeedSrvClient) GetVideoById(ctx context.Context, Req *feed.VideoIdRequest, callOptions ...callopt.Option) (r *feed.Video, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetVideoById(ctx, Req)
+	return p.kClient.Feed(ctx, Req)
 }

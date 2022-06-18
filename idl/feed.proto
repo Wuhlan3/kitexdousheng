@@ -6,7 +6,7 @@ import "user.proto";
 
 message douyin_feed_request {
     optional int64 latest_time = 1; // 可选参数，限制返回视频的最新投稿时间戳，精确到秒，不填表示当前时间
-    optional string token = 2; // 可选参数，登录用户设置
+    int64 user_id = 2; //用户id
 }
 
 message douyin_feed_response {
@@ -33,6 +33,5 @@ message Video {
 }
 
 service FeedSrv{
-    rpc GetUserFeed (douyin_feed_request) returns (douyin_feed_response) {}
-    rpc GetVideoById (video_id_request) returns (Video) {}
+    rpc Feed (douyin_feed_request) returns (douyin_feed_response) {}
 }

@@ -22,9 +22,9 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "UserSrv"
 	handlerType := (*user.UserSrv)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"Register": kitex.NewMethodInfo(registerHandler, newRegisterArgs, newRegisterResult, false),
-		"Login":    kitex.NewMethodInfo(loginHandler, newLoginArgs, newLoginResult, false),
-		"Info":     kitex.NewMethodInfo(infoHandler, newInfoArgs, newInfoResult, false),
+		"UserRegister": kitex.NewMethodInfo(userRegisterHandler, newUserRegisterArgs, newUserRegisterResult, false),
+		"UserLogin":    kitex.NewMethodInfo(userLoginHandler, newUserLoginArgs, newUserLoginResult, false),
+		"UserInfo":     kitex.NewMethodInfo(userInfoHandler, newUserInfoArgs, newUserInfoResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "user",
@@ -40,7 +40,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	return svcInfo
 }
 
-func registerHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+func userRegisterHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	switch s := arg.(type) {
 	case *streaming.Args:
 		st := s.Stream
@@ -48,43 +48,43 @@ func registerHandler(ctx context.Context, handler interface{}, arg, result inter
 		if err := st.RecvMsg(req); err != nil {
 			return err
 		}
-		resp, err := handler.(user.UserSrv).Register(ctx, req)
+		resp, err := handler.(user.UserSrv).UserRegister(ctx, req)
 		if err != nil {
 			return err
 		}
 		if err := st.SendMsg(resp); err != nil {
 			return err
 		}
-	case *RegisterArgs:
-		success, err := handler.(user.UserSrv).Register(ctx, s.Req)
+	case *UserRegisterArgs:
+		success, err := handler.(user.UserSrv).UserRegister(ctx, s.Req)
 		if err != nil {
 			return err
 		}
-		realResult := result.(*RegisterResult)
+		realResult := result.(*UserRegisterResult)
 		realResult.Success = success
 	}
 	return nil
 }
-func newRegisterArgs() interface{} {
-	return &RegisterArgs{}
+func newUserRegisterArgs() interface{} {
+	return &UserRegisterArgs{}
 }
 
-func newRegisterResult() interface{} {
-	return &RegisterResult{}
+func newUserRegisterResult() interface{} {
+	return &UserRegisterResult{}
 }
 
-type RegisterArgs struct {
+type UserRegisterArgs struct {
 	Req *user.DouyinUserRegisterRequest
 }
 
-func (p *RegisterArgs) Marshal(out []byte) ([]byte, error) {
+func (p *UserRegisterArgs) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetReq() {
-		return out, fmt.Errorf("No req in RegisterArgs")
+		return out, fmt.Errorf("No req in UserRegisterArgs")
 	}
 	return proto.Marshal(p.Req)
 }
 
-func (p *RegisterArgs) Unmarshal(in []byte) error {
+func (p *UserRegisterArgs) Unmarshal(in []byte) error {
 	msg := new(user.DouyinUserRegisterRequest)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
@@ -93,33 +93,33 @@ func (p *RegisterArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var RegisterArgs_Req_DEFAULT *user.DouyinUserRegisterRequest
+var UserRegisterArgs_Req_DEFAULT *user.DouyinUserRegisterRequest
 
-func (p *RegisterArgs) GetReq() *user.DouyinUserRegisterRequest {
+func (p *UserRegisterArgs) GetReq() *user.DouyinUserRegisterRequest {
 	if !p.IsSetReq() {
-		return RegisterArgs_Req_DEFAULT
+		return UserRegisterArgs_Req_DEFAULT
 	}
 	return p.Req
 }
 
-func (p *RegisterArgs) IsSetReq() bool {
+func (p *UserRegisterArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-type RegisterResult struct {
+type UserRegisterResult struct {
 	Success *user.DouyinUserRegisterResponse
 }
 
-var RegisterResult_Success_DEFAULT *user.DouyinUserRegisterResponse
+var UserRegisterResult_Success_DEFAULT *user.DouyinUserRegisterResponse
 
-func (p *RegisterResult) Marshal(out []byte) ([]byte, error) {
+func (p *UserRegisterResult) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetSuccess() {
-		return out, fmt.Errorf("No req in RegisterResult")
+		return out, fmt.Errorf("No req in UserRegisterResult")
 	}
 	return proto.Marshal(p.Success)
 }
 
-func (p *RegisterResult) Unmarshal(in []byte) error {
+func (p *UserRegisterResult) Unmarshal(in []byte) error {
 	msg := new(user.DouyinUserRegisterResponse)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
@@ -128,67 +128,67 @@ func (p *RegisterResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *RegisterResult) GetSuccess() *user.DouyinUserRegisterResponse {
+func (p *UserRegisterResult) GetSuccess() *user.DouyinUserRegisterResponse {
 	if !p.IsSetSuccess() {
-		return RegisterResult_Success_DEFAULT
+		return UserRegisterResult_Success_DEFAULT
 	}
 	return p.Success
 }
 
-func (p *RegisterResult) SetSuccess(x interface{}) {
+func (p *UserRegisterResult) SetSuccess(x interface{}) {
 	p.Success = x.(*user.DouyinUserRegisterResponse)
 }
 
-func (p *RegisterResult) IsSetSuccess() bool {
+func (p *UserRegisterResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func loginHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+func userLoginHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	switch s := arg.(type) {
 	case *streaming.Args:
 		st := s.Stream
-		req := new(user.DouyinUserRegisterRequest)
+		req := new(user.DouyinUserLoginRequest)
 		if err := st.RecvMsg(req); err != nil {
 			return err
 		}
-		resp, err := handler.(user.UserSrv).Login(ctx, req)
+		resp, err := handler.(user.UserSrv).UserLogin(ctx, req)
 		if err != nil {
 			return err
 		}
 		if err := st.SendMsg(resp); err != nil {
 			return err
 		}
-	case *LoginArgs:
-		success, err := handler.(user.UserSrv).Login(ctx, s.Req)
+	case *UserLoginArgs:
+		success, err := handler.(user.UserSrv).UserLogin(ctx, s.Req)
 		if err != nil {
 			return err
 		}
-		realResult := result.(*LoginResult)
+		realResult := result.(*UserLoginResult)
 		realResult.Success = success
 	}
 	return nil
 }
-func newLoginArgs() interface{} {
-	return &LoginArgs{}
+func newUserLoginArgs() interface{} {
+	return &UserLoginArgs{}
 }
 
-func newLoginResult() interface{} {
-	return &LoginResult{}
+func newUserLoginResult() interface{} {
+	return &UserLoginResult{}
 }
 
-type LoginArgs struct {
-	Req *user.DouyinUserRegisterRequest
+type UserLoginArgs struct {
+	Req *user.DouyinUserLoginRequest
 }
 
-func (p *LoginArgs) Marshal(out []byte) ([]byte, error) {
+func (p *UserLoginArgs) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetReq() {
-		return out, fmt.Errorf("No req in LoginArgs")
+		return out, fmt.Errorf("No req in UserLoginArgs")
 	}
 	return proto.Marshal(p.Req)
 }
 
-func (p *LoginArgs) Unmarshal(in []byte) error {
-	msg := new(user.DouyinUserRegisterRequest)
+func (p *UserLoginArgs) Unmarshal(in []byte) error {
+	msg := new(user.DouyinUserLoginRequest)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -196,34 +196,34 @@ func (p *LoginArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var LoginArgs_Req_DEFAULT *user.DouyinUserRegisterRequest
+var UserLoginArgs_Req_DEFAULT *user.DouyinUserLoginRequest
 
-func (p *LoginArgs) GetReq() *user.DouyinUserRegisterRequest {
+func (p *UserLoginArgs) GetReq() *user.DouyinUserLoginRequest {
 	if !p.IsSetReq() {
-		return LoginArgs_Req_DEFAULT
+		return UserLoginArgs_Req_DEFAULT
 	}
 	return p.Req
 }
 
-func (p *LoginArgs) IsSetReq() bool {
+func (p *UserLoginArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-type LoginResult struct {
-	Success *user.DouyinUserRegisterResponse
+type UserLoginResult struct {
+	Success *user.DouyinUserLoginResponse
 }
 
-var LoginResult_Success_DEFAULT *user.DouyinUserRegisterResponse
+var UserLoginResult_Success_DEFAULT *user.DouyinUserLoginResponse
 
-func (p *LoginResult) Marshal(out []byte) ([]byte, error) {
+func (p *UserLoginResult) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetSuccess() {
-		return out, fmt.Errorf("No req in LoginResult")
+		return out, fmt.Errorf("No req in UserLoginResult")
 	}
 	return proto.Marshal(p.Success)
 }
 
-func (p *LoginResult) Unmarshal(in []byte) error {
-	msg := new(user.DouyinUserRegisterResponse)
+func (p *UserLoginResult) Unmarshal(in []byte) error {
+	msg := new(user.DouyinUserLoginResponse)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
 	}
@@ -231,22 +231,22 @@ func (p *LoginResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *LoginResult) GetSuccess() *user.DouyinUserRegisterResponse {
+func (p *UserLoginResult) GetSuccess() *user.DouyinUserLoginResponse {
 	if !p.IsSetSuccess() {
-		return LoginResult_Success_DEFAULT
+		return UserLoginResult_Success_DEFAULT
 	}
 	return p.Success
 }
 
-func (p *LoginResult) SetSuccess(x interface{}) {
-	p.Success = x.(*user.DouyinUserRegisterResponse)
+func (p *UserLoginResult) SetSuccess(x interface{}) {
+	p.Success = x.(*user.DouyinUserLoginResponse)
 }
 
-func (p *LoginResult) IsSetSuccess() bool {
+func (p *UserLoginResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func infoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+func userInfoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	switch s := arg.(type) {
 	case *streaming.Args:
 		st := s.Stream
@@ -254,43 +254,43 @@ func infoHandler(ctx context.Context, handler interface{}, arg, result interface
 		if err := st.RecvMsg(req); err != nil {
 			return err
 		}
-		resp, err := handler.(user.UserSrv).Info(ctx, req)
+		resp, err := handler.(user.UserSrv).UserInfo(ctx, req)
 		if err != nil {
 			return err
 		}
 		if err := st.SendMsg(resp); err != nil {
 			return err
 		}
-	case *InfoArgs:
-		success, err := handler.(user.UserSrv).Info(ctx, s.Req)
+	case *UserInfoArgs:
+		success, err := handler.(user.UserSrv).UserInfo(ctx, s.Req)
 		if err != nil {
 			return err
 		}
-		realResult := result.(*InfoResult)
+		realResult := result.(*UserInfoResult)
 		realResult.Success = success
 	}
 	return nil
 }
-func newInfoArgs() interface{} {
-	return &InfoArgs{}
+func newUserInfoArgs() interface{} {
+	return &UserInfoArgs{}
 }
 
-func newInfoResult() interface{} {
-	return &InfoResult{}
+func newUserInfoResult() interface{} {
+	return &UserInfoResult{}
 }
 
-type InfoArgs struct {
+type UserInfoArgs struct {
 	Req *user.DouyinUserRequest
 }
 
-func (p *InfoArgs) Marshal(out []byte) ([]byte, error) {
+func (p *UserInfoArgs) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetReq() {
-		return out, fmt.Errorf("No req in InfoArgs")
+		return out, fmt.Errorf("No req in UserInfoArgs")
 	}
 	return proto.Marshal(p.Req)
 }
 
-func (p *InfoArgs) Unmarshal(in []byte) error {
+func (p *UserInfoArgs) Unmarshal(in []byte) error {
 	msg := new(user.DouyinUserRequest)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
@@ -299,33 +299,33 @@ func (p *InfoArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var InfoArgs_Req_DEFAULT *user.DouyinUserRequest
+var UserInfoArgs_Req_DEFAULT *user.DouyinUserRequest
 
-func (p *InfoArgs) GetReq() *user.DouyinUserRequest {
+func (p *UserInfoArgs) GetReq() *user.DouyinUserRequest {
 	if !p.IsSetReq() {
-		return InfoArgs_Req_DEFAULT
+		return UserInfoArgs_Req_DEFAULT
 	}
 	return p.Req
 }
 
-func (p *InfoArgs) IsSetReq() bool {
+func (p *UserInfoArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-type InfoResult struct {
+type UserInfoResult struct {
 	Success *user.DouyinUserResponse
 }
 
-var InfoResult_Success_DEFAULT *user.DouyinUserResponse
+var UserInfoResult_Success_DEFAULT *user.DouyinUserResponse
 
-func (p *InfoResult) Marshal(out []byte) ([]byte, error) {
+func (p *UserInfoResult) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetSuccess() {
-		return out, fmt.Errorf("No req in InfoResult")
+		return out, fmt.Errorf("No req in UserInfoResult")
 	}
 	return proto.Marshal(p.Success)
 }
 
-func (p *InfoResult) Unmarshal(in []byte) error {
+func (p *UserInfoResult) Unmarshal(in []byte) error {
 	msg := new(user.DouyinUserResponse)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
@@ -334,18 +334,18 @@ func (p *InfoResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *InfoResult) GetSuccess() *user.DouyinUserResponse {
+func (p *UserInfoResult) GetSuccess() *user.DouyinUserResponse {
 	if !p.IsSetSuccess() {
-		return InfoResult_Success_DEFAULT
+		return UserInfoResult_Success_DEFAULT
 	}
 	return p.Success
 }
 
-func (p *InfoResult) SetSuccess(x interface{}) {
+func (p *UserInfoResult) SetSuccess(x interface{}) {
 	p.Success = x.(*user.DouyinUserResponse)
 }
 
-func (p *InfoResult) IsSetSuccess() bool {
+func (p *UserInfoResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
@@ -359,31 +359,31 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) Register(ctx context.Context, Req *user.DouyinUserRegisterRequest) (r *user.DouyinUserRegisterResponse, err error) {
-	var _args RegisterArgs
+func (p *kClient) UserRegister(ctx context.Context, Req *user.DouyinUserRegisterRequest) (r *user.DouyinUserRegisterResponse, err error) {
+	var _args UserRegisterArgs
 	_args.Req = Req
-	var _result RegisterResult
-	if err = p.c.Call(ctx, "Register", &_args, &_result); err != nil {
+	var _result UserRegisterResult
+	if err = p.c.Call(ctx, "UserRegister", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) Login(ctx context.Context, Req *user.DouyinUserRegisterRequest) (r *user.DouyinUserRegisterResponse, err error) {
-	var _args LoginArgs
+func (p *kClient) UserLogin(ctx context.Context, Req *user.DouyinUserLoginRequest) (r *user.DouyinUserLoginResponse, err error) {
+	var _args UserLoginArgs
 	_args.Req = Req
-	var _result LoginResult
-	if err = p.c.Call(ctx, "Login", &_args, &_result); err != nil {
+	var _result UserLoginResult
+	if err = p.c.Call(ctx, "UserLogin", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) Info(ctx context.Context, Req *user.DouyinUserRequest) (r *user.DouyinUserResponse, err error) {
-	var _args InfoArgs
+func (p *kClient) UserInfo(ctx context.Context, Req *user.DouyinUserRequest) (r *user.DouyinUserResponse, err error) {
+	var _args UserInfoArgs
 	_args.Req = Req
-	var _result InfoResult
-	if err = p.c.Call(ctx, "Info", &_args, &_result); err != nil {
+	var _result UserInfoResult
+	if err = p.c.Call(ctx, "UserInfo", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

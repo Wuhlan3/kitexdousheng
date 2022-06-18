@@ -11,12 +11,22 @@ message douyin_user_register_response {
     int32 status_code = 1; // 状态码，0-成功，其他值-失败
     optional string status_msg = 2; // 返回状态描述
     int64 user_id = 3; // 用户id
-    string token = 4; // 用户鉴权token
+}
+
+message douyin_user_login_request {
+    string username = 1; // 登录用户名，最长32个字符
+    string password = 2; // 密码，最长32个字符
+}
+
+message douyin_user_login_response {
+    int32 status_code = 1; // 状态码，0-成功，其他值-失败
+    optional string status_msg = 2; // 返回状态描述
+    int64 user_id = 3; // 用户id
 }
 
 message douyin_user_request {
-    int64 user_id = 1; // 用户id
-    string token = 2; // 用户鉴权token
+    int64 my_id = 1;   // 用户id
+    int64 his_id = 2;  // 目标id
 }
 
 message douyin_user_response {
@@ -34,7 +44,7 @@ message User {
 }
 
 service UserSrv{
-    rpc Register (douyin_user_register_request) returns (douyin_user_register_response) {}
-    rpc Login (douyin_user_register_request) returns (douyin_user_register_response) {}
-    rpc Info (douyin_user_request) returns (douyin_user_response) {}
+    rpc UserRegister (douyin_user_register_request) returns (douyin_user_register_response) {}
+    rpc UserLogin (douyin_user_login_request) returns (douyin_user_login_response) {}
+    rpc UserInfo (douyin_user_request) returns (douyin_user_response) {}
 }

@@ -22,8 +22,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	serviceName := "FeedSrv"
 	handlerType := (*feed.FeedSrv)(nil)
 	methods := map[string]kitex.MethodInfo{
-		"GetUserFeed":  kitex.NewMethodInfo(getUserFeedHandler, newGetUserFeedArgs, newGetUserFeedResult, false),
-		"GetVideoById": kitex.NewMethodInfo(getVideoByIdHandler, newGetVideoByIdArgs, newGetVideoByIdResult, false),
+		"Feed": kitex.NewMethodInfo(feedHandler, newFeedArgs, newFeedResult, false),
 	}
 	extra := map[string]interface{}{
 		"PackageName": "feed",
@@ -39,7 +38,7 @@ func NewServiceInfo() *kitex.ServiceInfo {
 	return svcInfo
 }
 
-func getUserFeedHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+func feedHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	switch s := arg.(type) {
 	case *streaming.Args:
 		st := s.Stream
@@ -47,43 +46,43 @@ func getUserFeedHandler(ctx context.Context, handler interface{}, arg, result in
 		if err := st.RecvMsg(req); err != nil {
 			return err
 		}
-		resp, err := handler.(feed.FeedSrv).GetUserFeed(ctx, req)
+		resp, err := handler.(feed.FeedSrv).Feed(ctx, req)
 		if err != nil {
 			return err
 		}
 		if err := st.SendMsg(resp); err != nil {
 			return err
 		}
-	case *GetUserFeedArgs:
-		success, err := handler.(feed.FeedSrv).GetUserFeed(ctx, s.Req)
+	case *FeedArgs:
+		success, err := handler.(feed.FeedSrv).Feed(ctx, s.Req)
 		if err != nil {
 			return err
 		}
-		realResult := result.(*GetUserFeedResult)
+		realResult := result.(*FeedResult)
 		realResult.Success = success
 	}
 	return nil
 }
-func newGetUserFeedArgs() interface{} {
-	return &GetUserFeedArgs{}
+func newFeedArgs() interface{} {
+	return &FeedArgs{}
 }
 
-func newGetUserFeedResult() interface{} {
-	return &GetUserFeedResult{}
+func newFeedResult() interface{} {
+	return &FeedResult{}
 }
 
-type GetUserFeedArgs struct {
+type FeedArgs struct {
 	Req *feed.DouyinFeedRequest
 }
 
-func (p *GetUserFeedArgs) Marshal(out []byte) ([]byte, error) {
+func (p *FeedArgs) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetReq() {
-		return out, fmt.Errorf("No req in GetUserFeedArgs")
+		return out, fmt.Errorf("No req in FeedArgs")
 	}
 	return proto.Marshal(p.Req)
 }
 
-func (p *GetUserFeedArgs) Unmarshal(in []byte) error {
+func (p *FeedArgs) Unmarshal(in []byte) error {
 	msg := new(feed.DouyinFeedRequest)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
@@ -92,33 +91,33 @@ func (p *GetUserFeedArgs) Unmarshal(in []byte) error {
 	return nil
 }
 
-var GetUserFeedArgs_Req_DEFAULT *feed.DouyinFeedRequest
+var FeedArgs_Req_DEFAULT *feed.DouyinFeedRequest
 
-func (p *GetUserFeedArgs) GetReq() *feed.DouyinFeedRequest {
+func (p *FeedArgs) GetReq() *feed.DouyinFeedRequest {
 	if !p.IsSetReq() {
-		return GetUserFeedArgs_Req_DEFAULT
+		return FeedArgs_Req_DEFAULT
 	}
 	return p.Req
 }
 
-func (p *GetUserFeedArgs) IsSetReq() bool {
+func (p *FeedArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-type GetUserFeedResult struct {
+type FeedResult struct {
 	Success *feed.DouyinFeedResponse
 }
 
-var GetUserFeedResult_Success_DEFAULT *feed.DouyinFeedResponse
+var FeedResult_Success_DEFAULT *feed.DouyinFeedResponse
 
-func (p *GetUserFeedResult) Marshal(out []byte) ([]byte, error) {
+func (p *FeedResult) Marshal(out []byte) ([]byte, error) {
 	if !p.IsSetSuccess() {
-		return out, fmt.Errorf("No req in GetUserFeedResult")
+		return out, fmt.Errorf("No req in FeedResult")
 	}
 	return proto.Marshal(p.Success)
 }
 
-func (p *GetUserFeedResult) Unmarshal(in []byte) error {
+func (p *FeedResult) Unmarshal(in []byte) error {
 	msg := new(feed.DouyinFeedResponse)
 	if err := proto.Unmarshal(in, msg); err != nil {
 		return err
@@ -127,121 +126,18 @@ func (p *GetUserFeedResult) Unmarshal(in []byte) error {
 	return nil
 }
 
-func (p *GetUserFeedResult) GetSuccess() *feed.DouyinFeedResponse {
+func (p *FeedResult) GetSuccess() *feed.DouyinFeedResponse {
 	if !p.IsSetSuccess() {
-		return GetUserFeedResult_Success_DEFAULT
+		return FeedResult_Success_DEFAULT
 	}
 	return p.Success
 }
 
-func (p *GetUserFeedResult) SetSuccess(x interface{}) {
+func (p *FeedResult) SetSuccess(x interface{}) {
 	p.Success = x.(*feed.DouyinFeedResponse)
 }
 
-func (p *GetUserFeedResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func getVideoByIdHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	switch s := arg.(type) {
-	case *streaming.Args:
-		st := s.Stream
-		req := new(feed.VideoIdRequest)
-		if err := st.RecvMsg(req); err != nil {
-			return err
-		}
-		resp, err := handler.(feed.FeedSrv).GetVideoById(ctx, req)
-		if err != nil {
-			return err
-		}
-		if err := st.SendMsg(resp); err != nil {
-			return err
-		}
-	case *GetVideoByIdArgs:
-		success, err := handler.(feed.FeedSrv).GetVideoById(ctx, s.Req)
-		if err != nil {
-			return err
-		}
-		realResult := result.(*GetVideoByIdResult)
-		realResult.Success = success
-	}
-	return nil
-}
-func newGetVideoByIdArgs() interface{} {
-	return &GetVideoByIdArgs{}
-}
-
-func newGetVideoByIdResult() interface{} {
-	return &GetVideoByIdResult{}
-}
-
-type GetVideoByIdArgs struct {
-	Req *feed.VideoIdRequest
-}
-
-func (p *GetVideoByIdArgs) Marshal(out []byte) ([]byte, error) {
-	if !p.IsSetReq() {
-		return out, fmt.Errorf("No req in GetVideoByIdArgs")
-	}
-	return proto.Marshal(p.Req)
-}
-
-func (p *GetVideoByIdArgs) Unmarshal(in []byte) error {
-	msg := new(feed.VideoIdRequest)
-	if err := proto.Unmarshal(in, msg); err != nil {
-		return err
-	}
-	p.Req = msg
-	return nil
-}
-
-var GetVideoByIdArgs_Req_DEFAULT *feed.VideoIdRequest
-
-func (p *GetVideoByIdArgs) GetReq() *feed.VideoIdRequest {
-	if !p.IsSetReq() {
-		return GetVideoByIdArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-
-func (p *GetVideoByIdArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-type GetVideoByIdResult struct {
-	Success *feed.Video
-}
-
-var GetVideoByIdResult_Success_DEFAULT *feed.Video
-
-func (p *GetVideoByIdResult) Marshal(out []byte) ([]byte, error) {
-	if !p.IsSetSuccess() {
-		return out, fmt.Errorf("No req in GetVideoByIdResult")
-	}
-	return proto.Marshal(p.Success)
-}
-
-func (p *GetVideoByIdResult) Unmarshal(in []byte) error {
-	msg := new(feed.Video)
-	if err := proto.Unmarshal(in, msg); err != nil {
-		return err
-	}
-	p.Success = msg
-	return nil
-}
-
-func (p *GetVideoByIdResult) GetSuccess() *feed.Video {
-	if !p.IsSetSuccess() {
-		return GetVideoByIdResult_Success_DEFAULT
-	}
-	return p.Success
-}
-
-func (p *GetVideoByIdResult) SetSuccess(x interface{}) {
-	p.Success = x.(*feed.Video)
-}
-
-func (p *GetVideoByIdResult) IsSetSuccess() bool {
+func (p *FeedResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
@@ -255,21 +151,11 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) GetUserFeed(ctx context.Context, Req *feed.DouyinFeedRequest) (r *feed.DouyinFeedResponse, err error) {
-	var _args GetUserFeedArgs
+func (p *kClient) Feed(ctx context.Context, Req *feed.DouyinFeedRequest) (r *feed.DouyinFeedResponse, err error) {
+	var _args FeedArgs
 	_args.Req = Req
-	var _result GetUserFeedResult
-	if err = p.c.Call(ctx, "GetUserFeed", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) GetVideoById(ctx context.Context, Req *feed.VideoIdRequest) (r *feed.Video, err error) {
-	var _args GetVideoByIdArgs
-	_args.Req = Req
-	var _result GetVideoByIdResult
-	if err = p.c.Call(ctx, "GetVideoById", &_args, &_result); err != nil {
+	var _result FeedResult
+	if err = p.c.Call(ctx, "Feed", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
