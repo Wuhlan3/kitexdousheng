@@ -15,6 +15,7 @@ type Response struct {
 	Data    interface{} `json:"data"`
 }
 
+//gaiyx
 // SendResponse pack response
 func SendResponse(c *gin.Context, err error, data interface{}) {
 	Err := errno.ConvertErr(err)
