@@ -11,14 +11,14 @@ datasource:
 logger:
   logfilepath: ../log/log.txt
 video:
-  absolutePath: http://124.222.132.116:8080/home/go/src/dousheng/public/
+  absolutePath: 
   savePath: ./public
   maxNumPerTimes: 30
 cos:
-  uriPath: https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/dousheng/
-  url: https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com
-  SecretID: AKID61g4B1atwiDSQ6VeX9UYMt86oFOwCCvM
-  SecretKey: B6k6BzWmlTv60d06uRhgNnwoPikVzC8o
+  uriPath: 
+  url: 
+  SecretID: 
+  SecretKey: 
   videoDir: dousheng/
 service:
   UserServiceName: user
