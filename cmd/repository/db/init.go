@@ -49,5 +49,10 @@ func Init() {
 			panic(err)
 		}
 	}
+	if !m.HasTable(&Favourite{}) {
+		if err = m.CreateTable(&Favourite{}); err != nil {
+			panic(err)
+		}
+	}
 
 }
