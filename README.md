@@ -5,7 +5,7 @@
 <img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/UML.jpg" width="500px">
 
 # 数据库E-R图
-![dousheng](https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/dousheng.svg)
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/er.jpg" width="800px">
 
 # 运行方法
 ```
