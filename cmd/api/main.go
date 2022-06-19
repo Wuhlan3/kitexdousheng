@@ -4,13 +4,10 @@ import (
 	"github.com/cloudwego/kitex/pkg/klog"
 	"github.com/spf13/viper"
 
-	// "kitexdousheng/repository"
-	// "kitexdousheng/util"
 	"github.com/gin-gonic/gin"
 	"kitexdousheng/cmd/api/rpc"
 	"kitexdousheng/config"
 	"net/http"
-	//"os"
 )
 
 func main() {

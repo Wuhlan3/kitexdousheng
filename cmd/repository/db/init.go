@@ -26,10 +26,22 @@ func Init() {
 	//}
 
 	m := DB.Migrator()
+	if m.HasTable(&User{}) {
+		return
+	}
+	if err = m.CreateTable(&User{}); err != nil {
+		panic(err)
+	}
 	if m.HasTable(&Video{}) {
 		return
 	}
 	if err = m.CreateTable(&Video{}); err != nil {
+		panic(err)
+	}
+	if m.HasTable(&Follow{}) {
+		return
+	}
+	if err = m.CreateTable(&Follow{}); err != nil {
 		panic(err)
 	}
 }

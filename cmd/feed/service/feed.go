@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 	"github.com/spf13/viper"
-	"kitexdousheng/cmd/feed/repository/db"
+	"kitexdousheng/cmd/repository/db"
 	"kitexdousheng/kitex_gen/feed"
 	"kitexdousheng/kitex_gen/user"
 	"strconv"

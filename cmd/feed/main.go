@@ -6,7 +6,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	etcd "github.com/kitex-contrib/registry-etcd"
-	"kitexdousheng/cmd/feed/repository"
+	"kitexdousheng/cmd/repository"
 	"kitexdousheng/config"
 	feed "kitexdousheng/kitex_gen/feed/feedsrv"
 	"kitexdousheng/pkg/constants"

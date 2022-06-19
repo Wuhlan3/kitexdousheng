@@ -1,7 +1,7 @@
 package service
 
 import (
-	"kitexdousheng/cmd/user/repository/db"
+	"kitexdousheng/cmd/repository/db"
 )
 
 type UserInfo struct {

@@ -3,7 +3,7 @@ package service
 import (
 	"errors"
 	"golang.org/x/crypto/bcrypt"
-	"kitexdousheng/cmd/user/repository/db"
+	"kitexdousheng/cmd/repository/db"
 	"kitexdousheng/kitex_gen/user"
 )
 

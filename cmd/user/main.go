@@ -7,7 +7,7 @@ import (
 	"github.com/cloudwego/kitex/pkg/rpcinfo"
 	"github.com/cloudwego/kitex/server"
 	etcd "github.com/kitex-contrib/registry-etcd"
-	"kitexdousheng/cmd/user/repository"
+	"kitexdousheng/cmd/repository"
 	"kitexdousheng/config"
 	user "kitexdousheng/kitex_gen/user/usersrv"
 	"kitexdousheng/pkg/constants"
