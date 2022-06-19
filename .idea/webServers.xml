@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="7e339f82-953e-4fa4-abdd-54a2b694723f" name="myhost">
-        <fileTransfer rootFolder="/root/go-learning" accessType="SFTP" host="175.178.98.212" port="22" sshConfigId="3c95c205-ea6c-4785-bb7c-a0b4c5a6f060" sshConfig="root@175.178.98.212:22 password">
+        <fileTransfer rootFolder="/home/go/src/kitexdousheng/kitexdousheng" accessType="SFTP" host="124.222.132.116" port="22" sshConfigId="3c95c205-ea6c-4785-bb7c-a0b4c5a6f060" sshConfig="root@124.222.132.116:22 password">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

@@ -1,0 +1,29 @@
+server:
+  port: 8081
+datasource:
+  driverName: mysql
+  host: 127.0.0.1
+  port: 3306
+  database: dousheng
+  username: root
+  password: 123456
+  charset: utf8
+logger:
+  logfilepath: ../log/log.txt
+video:
+  absolutePath: 
+  savePath: ./public
+  maxNumPerTimes: 30
+cos:
+  uriPath: 
+  url: 
+  SecretID: 
+  SecretKey: 
+  videoDir: dousheng/
+service:
+  UserServiceName: user
+  UserServiceAddress: 127.0.0.1:8082
+  FeedServiceName: feed
+  FeedServiceAddress: 127.0.0.1:8083
+etcd:
+  address: 127.0.0.1:2379
