@@ -21,6 +21,10 @@ func Init() {
 		panic(err)
 	}
 
+	//if err = DB.Use(gormopentracing.New()); err != nil {
+	//	panic(err)
+	//}
+
 	m := DB.Migrator()
 	if !m.HasTable(&User{}) {
 		if err = m.CreateTable(&User{}); err != nil {
@@ -38,8 +42,8 @@ func Init() {
 		if err = m.CreateTable(&Follow{}); err != nil {
 			panic(err)
 		}
+		return
 	}
-
 	if !m.HasTable(&Comment{}) {
 		if err = m.CreateTable(&Comment{}); err != nil {
 			panic(err)
