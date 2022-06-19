@@ -2,11 +2,13 @@ package main
 
 import (
 	"github.com/cloudwego/kitex/pkg/klog"
-	// "kitexdousheng/config"
+	"github.com/spf13/viper"
+
 	// "kitexdousheng/repository"
 	// "kitexdousheng/util"
 	"github.com/gin-gonic/gin"
 	"kitexdousheng/cmd/api/rpc"
+	"kitexdousheng/config"
 	"net/http"
 	//"os"
 )
@@ -22,8 +24,10 @@ func main() {
 
 	initRouter(r)
 
+	config.InitConfig()
+
 	//r.Run(":8081") // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
-	if err := http.ListenAndServe(":20000", r); err != nil {
+	if err := http.ListenAndServe(":"+viper.GetString("server.port"), r); err != nil {
 		klog.Fatal(err)
 	}
 }

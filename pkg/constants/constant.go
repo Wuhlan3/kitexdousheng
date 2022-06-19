@@ -25,8 +25,9 @@ const (
 	NoteID                  = "note_id"
 	ApiServiceName          = "demoapi"
 	NoteServiceName         = "demonote"
+	FeedServiceName         = "feed"
 	UserServiceName         = "user"
-	MySQLDefaultDSN         = "___:___@tcp(localhost:3306)/___?charset=utf8&parseTime=True&loc=Local"
+	MySQLDefaultDSN         = "root:123456@tcp(localhost:3306)/kitexdousheng?charset=utf8&parseTime=True&loc=Local"
 	EtcdAddress             = "127.0.0.1:2379"
 	CPURateLimit    float64 = 80.0
 	DefaultLimit            = 10

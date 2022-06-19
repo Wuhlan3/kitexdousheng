@@ -8,6 +8,7 @@ import (
 	"github.com/cloudwego/kitex/server"
 	etcd "github.com/kitex-contrib/registry-etcd"
 	"kitexdousheng/cmd/user/repository"
+	"kitexdousheng/config"
 	user "kitexdousheng/kitex_gen/user/usersrv"
 	"kitexdousheng/pkg/constants"
 	"kitexdousheng/pkg/middleware"
@@ -27,6 +28,8 @@ func main() {
 	}
 	//数据库初始化
 	repository.Init()
+	//config初始化
+	config.InitConfig()
 	svr := user.NewServer(new(UserSrvImpl),
 		server.WithServerBasicInfo(&rpcinfo.EndpointBasicInfo{ServiceName: constants.UserServiceName}), // server name
 		server.WithMiddleware(middleware.CommonMiddleware),                                             // middleware
