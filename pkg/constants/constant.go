@@ -25,6 +25,7 @@ const (
 	NoteID                     = "note_id"
 	ApiServiceName             = "demoapi"
 	NoteServiceName            = "demonote"
+	CommentServiceName         = "comment"
 	PublishServiceName         = "Publish"
 	FeedServiceName            = "feed"
 	UserServiceName            = "user"

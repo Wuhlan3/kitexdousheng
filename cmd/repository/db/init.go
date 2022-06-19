@@ -21,27 +21,29 @@ func Init() {
 		panic(err)
 	}
 
-	//if err = DB.Use(gormopentracing.New()); err != nil {
-	//	panic(err)
-	//}
-
 	m := DB.Migrator()
-	if m.HasTable(&User{}) {
-		return
+	if !m.HasTable(&User{}) {
+		if err = m.CreateTable(&User{}); err != nil {
+			panic(err)
+		}
 	}
-	if err = m.CreateTable(&User{}); err != nil {
-		panic(err)
+
+	if !m.HasTable(&Video{}) {
+		if err = m.CreateTable(&Video{}); err != nil {
+			panic(err)
+		}
 	}
-	if m.HasTable(&Video{}) {
-		return
+
+	if !m.HasTable(&Follow{}) {
+		if err = m.CreateTable(&Follow{}); err != nil {
+			panic(err)
+		}
 	}
-	if err = m.CreateTable(&Video{}); err != nil {
-		panic(err)
+
+	if !m.HasTable(&Comment{}) {
+		if err = m.CreateTable(&Comment{}); err != nil {
+			panic(err)
+		}
 	}
-	if m.HasTable(&Follow{}) {
-		return
-	}
-	if err = m.CreateTable(&Follow{}); err != nil {
-		panic(err)
-	}
+
 }
