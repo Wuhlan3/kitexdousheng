@@ -15,11 +15,13 @@ video:
   savePath: ./public
   maxNumPerTimes: 30
 cos:
-  uriPath: 
-  url: 
-  SecretID: 
-  SecretKey: 
-  videoDir: dousheng/
+  uriVideoPath: https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/kitexdousheng/video/
+  uriPicturePath: https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/kitexdousheng/img/
+  url: https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com
+  SecretID: AKID61g4B1atwiDSQ6VeX9UYMt86oFOwCCvM
+  SecretKey: B6k6BzWmlTv60d06uRhgNnwoPikVzC8o
+  videoDir: /kitexdousheng/video/
+  imgDir: /kitexdousheng/img/
 service:
   UserServiceName: user
   UserServiceAddress: 127.0.0.1:8082

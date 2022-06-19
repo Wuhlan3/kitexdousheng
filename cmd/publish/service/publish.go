@@ -1,8 +1,9 @@
 package service
 
 import (
-	"kitexdousheng/cmd/publish/repository/db"
+	"kitexdousheng/cmd/repository/db"
 	"kitexdousheng/kitex_gen/feed"
+	"kitexdousheng/kitex_gen/user"
 	"time"
 )
 
@@ -30,20 +31,20 @@ func PublishList(uid int64) ([]*feed.Video, error) {
 	videosList, err := db.NewVideoDaoInstance().QueryVideoListByUId(uid)
 	var protoVideoList []*feed.Video
 	for _, video := range *videosList {
-		//user, err := db.NewUserDaoInstance().QueryUserById(uid)
-		//if err != nil {
-		//	return nil, err
-		//}
-		//demoUser := &proto.User{
-		//	Id:            user.Id,
-		//	Name:          user.Name,
-		//	FollowCount:   user.FollowCount,
-		//	FollowerCount: user.FollowerCount,
-		//	IsFollow:      false,
-		//}
+		tempUser, err := db.NewUserDaoInstance().QueryUserById(uid)
+		if err != nil {
+			return nil, err
+		}
+		tempProtoUser := &user.User{
+			Id:            tempUser.Id,
+			Name:          tempUser.Name,
+			FollowCount:   &tempUser.FollowCount,
+			FollowerCount: &tempUser.FollowerCount,
+			IsFollow:      false,
+		}
 		protoVideoList = append(protoVideoList, &feed.Video{
 			Id:            video.Id,
-			Author:        nil,
+			Author:        tempProtoUser,
 			PlayUrl:       video.PlayUrl,
 			CoverUrl:      video.CoverUrl,
 			FavoriteCount: video.FavouriteCount,

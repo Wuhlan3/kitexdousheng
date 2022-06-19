@@ -10,15 +10,6 @@ import (
 )
 
 func initRouter(r *gin.Engine) {
-	// public directory is used to serve static resources
-	//r.Static("/static", "./public")
-	// r.GET("/home/go/src/dousheng/public/:name", func(c *gin.Context) {
-	// 	name := c.Param("name")
-	// 	filename := path.Join("./public/", name)
-	// 	c.File(filename)
-	// 	return
-	// })
-
 	apiRouter := r.Group("/douyin")
 
 	// basic apis
