@@ -17,6 +17,12 @@ cd cmd/user
 sh build.sh
 sh output/bootstrap.sh
 ```
+
+# 项目亮点
+- 使用jwt鉴权
+- 将视频上传到腾讯云cos存储桶，便于管理，提供传输效率
+- 使用ffmpeg截取视频的封面
+
 # References
 [1] https://www.cloudwego.io/zh/docs/kitex/getting-started/
 
