@@ -5,7 +5,7 @@ option go_package = "publish";
 import "feed.proto";
 
 message douyin_publish_action_request {
-    string user_id = 1; // 用户id
+    int64 user_id = 1; // 用户id
     string title = 2; // 视频标题
 }
 

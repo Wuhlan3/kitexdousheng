@@ -4,6 +4,7 @@ go 1.16
 
 require (
 	github.com/cloudwego/kitex v0.3.2
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.8.1
 	github.com/kitex-contrib/registry-etcd v0.0.0-20220110034026-b1c94979cea3
 	github.com/spf13/viper v1.7.0
