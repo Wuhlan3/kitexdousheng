@@ -40,8 +40,8 @@ func FavoriteAction(c *gin.Context) {
 
 // FavoriteList all users have same favorite video list
 func FavoriteList(c *gin.Context) {
-	uid, _ := c.Get("uid")
-	userId := uid.(int64)
+	userIdStr := c.Query("user_id")
+	userId, err := strconv.ParseInt(userIdStr, 10, 64)
 	resp, err := rpc.FavoriteList(c, &favorite.DouyinFavoriteListRequest{UserId: userId})
 	if err != nil || resp == nil {
 		SendResponse(c, errno.ParamErr, nil)

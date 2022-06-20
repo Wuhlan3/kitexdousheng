@@ -18,6 +18,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"strconv"
 	"time"
 )
 
@@ -67,8 +68,8 @@ func PublishAction(c *gin.Context) {
 }
 
 func PublishList(c *gin.Context) {
-	uid, _ := c.Get("uid")
-	userId := uid.(int64)
+	userIdStr := c.Query("user_id")
+	userId, err := strconv.ParseInt(userIdStr, 10, 64)
 
 	resp, err := rpc.PublishList(c, &publish.DouyinPublishListRequest{
 		UserId: userId,

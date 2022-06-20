@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"github.com/spf13/viper"
 	"kitexdousheng/cmd/repository/db"
 	"kitexdousheng/kitex_gen/feed"
@@ -10,7 +9,8 @@ import (
 )
 
 func FavoriteList(uid int64) ([]*feed.Video, error) {
-	path := viper.GetString("video.absolutePath")
+	videoPath := viper.GetString("cos.uriVideoPath")
+	imgPath := viper.GetString("cos.uriPicturePath")
 	favouriteList, err := db.NewFavouriteDaoInstance().QueryByUId(uid)
 	var protoVideoList []*feed.Video
 	for _, fav := range *favouriteList {
@@ -48,12 +48,11 @@ func FavoriteList(uid int64) ([]*feed.Video, error) {
 				IsFollow:      IsFollow,
 			}
 
-			fmt.Println(path + ":" + video.PlayUrl)
 			protoVideoList = append(protoVideoList, &feed.Video{
 				Id:            video.Id,
 				Author:        demoUser,
-				PlayUrl:       path + video.PlayUrl,
-				CoverUrl:      path + video.CoverUrl,
+				PlayUrl:       videoPath + video.PlayUrl,
+				CoverUrl:      imgPath + video.CoverUrl,
 				FavoriteCount: video.FavouriteCount,
 				CommentCount:  video.CommentCount,
 				IsFavorite:    true,

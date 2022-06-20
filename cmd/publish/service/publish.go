@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/spf13/viper"
 	"kitexdousheng/cmd/repository/db"
 	"kitexdousheng/kitex_gen/feed"
 	"kitexdousheng/kitex_gen/user"
@@ -29,6 +30,8 @@ func PublishAction(uid int64, fileName string) error {
 }
 
 func PublishList(uid int64) ([]*feed.Video, error) {
+	videoPath := viper.GetString("cos.uriVideoPath")
+	imgPath := viper.GetString("cos.uriPicturePath")
 	videosList, err := db.NewVideoDaoInstance().QueryVideoListByUId(uid)
 	var protoVideoList []*feed.Video
 	for _, video := range *videosList {
@@ -76,8 +79,8 @@ func PublishList(uid int64) ([]*feed.Video, error) {
 		protoVideoList = append(protoVideoList, &feed.Video{
 			Id:            video.Id,
 			Author:        tempProtoUser,
-			PlayUrl:       video.PlayUrl,
-			CoverUrl:      video.CoverUrl,
+			PlayUrl:       videoPath + video.PlayUrl,
+			CoverUrl:      imgPath + video.CoverUrl,
 			FavoriteCount: video.FavouriteCount,
 			CommentCount:  video.CommentCount,
 			IsFavorite:    isFavourite,
