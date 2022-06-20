@@ -8,6 +8,7 @@ import (
 	"kitexdousheng/cmd/repository"
 	"kitexdousheng/config"
 	comment "kitexdousheng/kitex_gen/comment/commentsrv"
+	"kitexdousheng/pkg/bound"
 	"kitexdousheng/pkg/constants"
 	"kitexdousheng/pkg/middleware"
 	"log"
@@ -37,8 +38,8 @@ func main() {
 		server.WithLimit(&limit.Option{MaxConnections: 1000, MaxQPS: 100}), // limit
 		server.WithMuxTransport(),                                          // Multiplex，开启连接多路复用
 		//server.WithSuite(trace.NewDefaultServerSuite()),                    // tracer
-		//server.WithBoundHandler(bound.NewCpuLimitHandler()),                // BoundHandler，CPU限流器
-		server.WithRegistry(r), // registry，
+		server.WithBoundHandler(bound.NewCpuLimitHandler()), // BoundHandler，CPU限流器
+		server.WithRegistry(r),                              // registry，
 	)
 	err = svr.Run()
 	if err != nil {
