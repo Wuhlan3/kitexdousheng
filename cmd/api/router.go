@@ -30,10 +30,4 @@ func initRouter(r *gin.Engine) {
 		authRouter.GET("/favorite/list/", handlers.FavoriteList)
 	}
 
-	// // extra apis - I
-	// apiRouter.POST("/favorite/action/", controller.FavoriteAction)
-	// apiRouter.GET("/favorite/list/", controller.FavoriteList)
-
-	// // extra apis - II
-
 }

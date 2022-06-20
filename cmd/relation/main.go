@@ -21,7 +21,7 @@ func main() {
 		panic(err)
 	}
 	//监听的本地ip
-	addr, err := net.ResolveTCPAddr("tcp", "127.0.0.1:8083")
+	addr, err := net.ResolveTCPAddr("tcp", "127.0.0.1:8086")
 	if err != nil {
 		panic(err)
 	}

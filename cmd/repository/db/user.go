@@ -74,7 +74,7 @@ func (*UserDao) QueryUserByName(name string) (*User, error) {
 }
 
 func (*UserDao) IncUserFollow(uid int64) error {
-	err := DB.Model(User{}).Where("id = ?", uid).UpdateColumn("follower_count", gorm.Expr("follow_count + ?", 1)).Error
+	err := DB.Model(User{}).Where("id = ?", uid).UpdateColumn("follow_count", gorm.Expr("follow_count + ?", 1)).Error
 	if err != nil {
 		log.Println("inc user follow count error")
 		return err
@@ -83,7 +83,7 @@ func (*UserDao) IncUserFollow(uid int64) error {
 }
 
 func (*UserDao) DecUserFollow(uid int64) error {
-	err := DB.Model(User{}).Where("id = ?", uid).UpdateColumn("follower_count", gorm.Expr("follow_count - ?", 1)).Error
+	err := DB.Model(User{}).Where("id = ?", uid).UpdateColumn("follow_count", gorm.Expr("follow_count - ?", 1)).Error
 	if err != nil {
 		log.Println("dec user follow count error")
 		return err

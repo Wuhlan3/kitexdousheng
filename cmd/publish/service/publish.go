@@ -8,14 +8,15 @@ import (
 )
 
 func PublishAction(uid int64, fileName string) error {
-	len := len(fileName)
+	b := []byte(fileName)
+	imgName := string(b[:len(b)-3]) + "jpg"
 	video := &db.Video{
 		UId:            uid,
 		PlayUrl:        fileName,
-		CoverUrl:       "bear.jpg",
-		CommentCount:   10,
-		FavouriteCount: 10,
-		Title:          fileName[:len-4],
+		CoverUrl:       imgName,
+		CommentCount:   0,
+		FavouriteCount: 0,
+		Title:          fileName[:len(fileName)-4],
 		CreateTime:     time.Now(),
 		UpdateTime:     time.Now(),
 		IsDeleted:      false,
@@ -31,6 +32,23 @@ func PublishList(uid int64) ([]*feed.Video, error) {
 	videosList, err := db.NewVideoDaoInstance().QueryVideoListByUId(uid)
 	var protoVideoList []*feed.Video
 	for _, video := range *videosList {
+
+		//follow获取
+		tempFollow, err := db.NewFollowDaoInstance().QueryByUIdAndHisUId(uid, uid)
+		var isFollow bool
+		if err != nil {
+			isFollow = false
+			db.NewFollowDaoInstance().CreateFollow(&db.Follow{
+				MyId:       uid,
+				HisId:      uid,
+				IsFollow:   false,
+				CreateTime: time.Now(),
+				UpdateTime: time.Now(),
+			})
+		} else {
+			isFollow = tempFollow.IsFollow
+		}
+		//user获取
 		tempUser, err := db.NewUserDaoInstance().QueryUserById(uid)
 		if err != nil {
 			return nil, err
@@ -40,8 +58,21 @@ func PublishList(uid int64) ([]*feed.Video, error) {
 			Name:          tempUser.Name,
 			FollowCount:   &tempUser.FollowCount,
 			FollowerCount: &tempUser.FollowerCount,
-			IsFollow:      false,
+			IsFollow:      isFollow,
 		}
+		//favourite获取
+		isFavourite, err := db.NewFavouriteDaoInstance().QueryByVIdAndUId(video.Id, uid)
+		if err != nil {
+			isFavourite = false
+			db.NewFavouriteDaoInstance().CreateFavourite(&db.Favourite{
+				UId:         uid,
+				VId:         video.Id,
+				IsFavourite: false,
+				CreateTime:  time.Now(),
+				UpdateTime:  time.Now(),
+			})
+		}
+		//生成videoList
 		protoVideoList = append(protoVideoList, &feed.Video{
 			Id:            video.Id,
 			Author:        tempProtoUser,
@@ -49,7 +80,7 @@ func PublishList(uid int64) ([]*feed.Video, error) {
 			CoverUrl:      video.CoverUrl,
 			FavoriteCount: video.FavouriteCount,
 			CommentCount:  video.CommentCount,
-			IsFavorite:    false,
+			IsFavorite:    isFavourite,
 			Title:         video.Title,
 		})
 	}
