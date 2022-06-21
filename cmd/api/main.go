@@ -2,16 +2,22 @@ package main
 
 import (
 	"github.com/cloudwego/kitex/pkg/klog"
-	"github.com/spf13/viper"
-
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 	"kitexdousheng/cmd/api/rpc"
 	"kitexdousheng/config"
+	"kitexdousheng/pkg/constants"
+	"kitexdousheng/pkg/tracer"
 	"net/http"
 )
 
-func main() {
+func Init() {
+	tracer.InitJaeger(constants.ApiServiceName)
 	rpc.InitRPC()
+}
+func main() {
+
+	Init()
 	// config.InitConfig() // 设置配置文件
 	// if err := repository.Init(); err != nil {
 	// 	os.Exit(-1)
