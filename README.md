@@ -30,7 +30,7 @@ cd cmd/comment
 sh build.sh
 sh output/bootstrap.sh
 #运行favorite服务
-cd cmd/relation
+cd cmd/favorite
 sh build.sh
 sh output/bootstrap.sh
 #运行relation服务
