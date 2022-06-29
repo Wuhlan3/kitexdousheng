@@ -62,7 +62,7 @@ CMD cd /kitexdousheng/cmd/api && sh run.sh
 - 将视频上传到腾讯云cos存储桶，便于管理，提供传输效率
 - 使用ffmpeg截取视频的封面
 - 使用jaeger进行链路追踪
-- 添加cpu限流器，提高可用性
+- 添加cpu限制，增加熔断报警
 
 ## 七、提高方向
 - 使用Redis缓存，提高系统并发量；
