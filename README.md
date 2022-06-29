@@ -68,7 +68,6 @@ CMD cd /kitexdousheng/cmd/api && sh run.sh
 - 使用Redis缓存，减少数据库操作；
 - 考虑负载均衡等问题；
 - 参数校验完善；
-- 考虑数据库索引和事务操作；
 - 考虑消息队列的使用
 
 ## 八、References
