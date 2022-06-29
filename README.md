@@ -65,7 +65,7 @@ CMD cd /kitexdousheng/cmd/api && sh run.sh
 - 添加cpu限流器，提高可用性
 
 ## 七、提高方向
-- 使用Redis缓存，减少数据库操作；
+- 使用Redis缓存，提高系统并发量；
 - 考虑负载均衡等问题；
 - 参数校验完善；
 - 考虑消息队列的使用
