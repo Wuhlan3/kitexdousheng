@@ -2,10 +2,11 @@ package db
 
 import (
 	//"dousheng/util"
-	"gorm.io/gorm"
 	"log"
 	"sync"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type Video struct {
@@ -67,6 +68,16 @@ func (*VideoDao) QueryVideoById(vid int64) (*Video, error) {
 		return nil, err
 	}
 	return &videoList, nil
+}
+
+func (*VideoDao) QueryVideosByIdList(vidList []int64) ([]Video, error) {
+	var videoList []Video
+	err := DB.Where("id in ?", vidList).Find(&videoList).Error
+	if err != nil {
+		log.Println("find videoList by vidList err:" + err.Error())
+		return nil, err
+	}
+	return videoList, nil
 }
 
 func (*VideoDao) CreateVideo(video *Video) error {

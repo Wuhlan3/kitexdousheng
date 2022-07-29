@@ -1,12 +1,13 @@
 package handlers
 
 import (
-	"github.com/gin-gonic/gin"
 	"kitexdousheng/cmd/api/rpc"
 	"kitexdousheng/kitex_gen/relation"
 	"kitexdousheng/pkg/errno"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 /*
@@ -38,6 +39,10 @@ func RelationAction(c *gin.Context) {
 		HisId:      HisUId,
 		ActionType: int32(actionType),
 	})
+	if err != nil {
+		SendResponse(c, errno.ParamErr, nil)
+		return
+	}
 
 	c.JSON(http.StatusOK, resp)
 }

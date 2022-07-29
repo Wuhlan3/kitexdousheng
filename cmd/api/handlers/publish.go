@@ -4,10 +4,6 @@ import (
 	"bytes"
 	"context"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/spf13/viper"
-	"github.com/tencentyun/cos-go-sdk-v5"
-	ffmpeg "github.com/u2takey/ffmpeg-go"
 	"image"
 	"image/jpeg"
 	"kitexdousheng/cmd/api/rpc"
@@ -20,6 +16,11 @@ import (
 	"path/filepath"
 	"strconv"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
+	"github.com/tencentyun/cos-go-sdk-v5"
+	ffmpeg "github.com/u2takey/ffmpeg-go"
 )
 
 func PublishAction(c *gin.Context) {
@@ -70,6 +71,10 @@ func PublishAction(c *gin.Context) {
 func PublishList(c *gin.Context) {
 	userIdStr := c.Query("user_id")
 	userId, err := strconv.ParseInt(userIdStr, 10, 64)
+	if err != nil {
+		SendResponse(c, errno.ConvertErr(err), nil)
+		return
+	}
 
 	resp, err := rpc.PublishList(c, &publish.DouyinPublishListRequest{
 		UserId: userId,

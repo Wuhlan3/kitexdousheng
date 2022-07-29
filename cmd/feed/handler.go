@@ -14,7 +14,7 @@ type FeedSrvImpl struct{}
 // Feed implements the FeedSrvImpl interface.
 func (s *FeedSrvImpl) Feed(ctx context.Context, req *feed.DouyinFeedRequest) (resp *feed.DouyinFeedResponse, err error) {
 	// TODO: Your code here...
-	videos, err := service.Feed(req.UserId)
+	videos, err := service.Feed(req.UserId, *req.LatestTime)
 	if err != nil {
 		return &feed.DouyinFeedResponse{
 			StatusCode: errno.ServiceErr.ErrCode,

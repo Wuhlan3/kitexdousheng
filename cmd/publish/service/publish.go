@@ -1,11 +1,12 @@
 package service
 
 import (
-	"github.com/spf13/viper"
 	"kitexdousheng/cmd/repository/db"
 	"kitexdousheng/kitex_gen/feed"
 	"kitexdousheng/kitex_gen/user"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
 func PublishAction(uid int64, fileName string) error {
@@ -23,6 +24,10 @@ func PublishAction(uid int64, fileName string) error {
 		IsDeleted:      false,
 	}
 	if err := db.NewVideoDaoInstance().CreateVideo(video); err != nil {
+		return err
+	}
+
+	if err := AddVIdListToRedis(video); err != nil {
 		return err
 	}
 

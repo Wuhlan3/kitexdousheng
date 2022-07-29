@@ -15,6 +15,18 @@
 
 package constants
 
+import (
+	"context"
+	"time"
+
+	"github.com/go-redis/redis/v8"
+)
+
+var (
+	REDIS   *redis.Client          // Redis 缓存接口
+	CONTEXT = context.Background() // 上下文信息
+)
+
 const (
 	NoteTableName               = "note"
 	UserTableName               = "user"
@@ -30,8 +42,21 @@ const (
 	FeedServiceName             = "feed"
 	UserServiceName             = "user"
 	RelationServiceName         = "relation"
-	MySQLDefaultDSN             = "root:###@tcp(localhost:3306)/###?charset=utf8&parseTime=True&loc=Local"
+	MySQLDefaultDSN             = "root:123456@tcp(localhost:3306)/kitexdousheng?charset=utf8&parseTime=True&loc=Local"
 	EtcdAddress                 = "127.0.0.1:2379"
 	CPURateLimit        float64 = 80.0
 	DefaultLimit                = 10
+)
+
+// 过期时间
+var (
+	FAVORITE_EXPIRE       = 10 * time.Minute
+	VIDEO_COMMENTS_EXPIRE = 10 * time.Minute
+	COMMENT_EXPIRE        = 10 * time.Minute
+	FOLLOW_EXPIRE         = 10 * time.Minute
+	USER_INFO_EXPIRE      = 10 * time.Minute
+	VIDEO_EXPIRE          = 10 * time.Minute
+	PUBLISH_EXPIRE        = 10 * time.Minute
+	EMPTY_EXPIRE          = 10 * time.Minute
+	EXPIRE_TIME_JITTER    = 10 * time.Minute
 )

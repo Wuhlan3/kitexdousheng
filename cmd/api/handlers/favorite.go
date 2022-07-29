@@ -1,12 +1,13 @@
 package handlers
 
 import (
-	"github.com/gin-gonic/gin"
 	"kitexdousheng/cmd/api/rpc"
 	"kitexdousheng/kitex_gen/favorite"
 	"kitexdousheng/pkg/errno"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 // FavoriteAction no practical effect, just check if token is valid
@@ -42,6 +43,11 @@ func FavoriteAction(c *gin.Context) {
 func FavoriteList(c *gin.Context) {
 	userIdStr := c.Query("user_id")
 	userId, err := strconv.ParseInt(userIdStr, 10, 64)
+	if err != nil {
+		SendResponse(c, errno.ParamErr, nil)
+		return
+	}
+
 	resp, err := rpc.FavoriteList(c, &favorite.DouyinFavoriteListRequest{UserId: userId})
 	if err != nil || resp == nil {
 		SendResponse(c, errno.ParamErr, nil)

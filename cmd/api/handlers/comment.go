@@ -1,10 +1,11 @@
 package handlers
 
 import (
-	"github.com/gin-gonic/gin"
 	"kitexdousheng/cmd/api/rpc"
 	"kitexdousheng/kitex_gen/comment"
 	"kitexdousheng/pkg/errno"
+
+	"github.com/gin-gonic/gin"
 
 	"net/http"
 	"strconv"
@@ -36,7 +37,6 @@ func CommentAction(c *gin.Context) {
 		}
 		c.JSON(http.StatusOK, resp)
 	}
-	return
 }
 
 func CommentList(c *gin.Context) {

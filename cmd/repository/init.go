@@ -4,4 +4,5 @@ import "kitexdousheng/cmd/repository/db"
 
 func Init() {
 	db.Init()
+	RedisInit()
 }

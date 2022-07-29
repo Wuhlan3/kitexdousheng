@@ -1,17 +1,19 @@
 package service
 
 import (
-	"github.com/spf13/viper"
+	"fmt"
 	"kitexdousheng/cmd/repository/db"
 	"kitexdousheng/kitex_gen/feed"
 	"kitexdousheng/kitex_gen/user"
 	"log"
 	"strconv"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
 //Feed 后续优化可以加入推荐算法
-func Feed(myUId int64) ([]*feed.Video, error) {
+func Feed(myUId int64, latestTime int64) ([]*feed.Video, error) {
 	videoPath := viper.GetString("cos.uriVideoPath")
 	imgPath := viper.GetString("cos.uriPicturePath")
 	maxNumStr := viper.GetString("video.maxNumPerTimes")
@@ -19,9 +21,22 @@ func Feed(myUId int64) ([]*feed.Video, error) {
 	if err != nil {
 		return nil, err
 	}
-	videosList, err := db.NewVideoDaoInstance().QueryVideoList(int(maxNum))
+
+	//查询Redis中是否存在 视频序号序列ZSet
+	VIdList, err := GetVIdListFromRedis(latestTime, maxNum)
+	if err != nil {
+		return nil, err
+	}
+
+	//如果存在，根据序号来获取视频相关信息，Hash
+	videosList, err := GetVideoListFromRedis(VIdList)
+	if err != nil {
+		fmt.Println(err.Error())
+		return nil, err
+	}
+
 	var protoVideoList []*feed.Video
-	for _, video := range *videosList {
+	for _, video := range videosList {
 		//follow获取
 		tempFollow, err := db.NewFollowDaoInstance().QueryByUIdAndHisUId(myUId, video.UId)
 		var isFollow bool
