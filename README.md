@@ -3,7 +3,7 @@
 之后我们打算将该项目改造为微服务架构，从而提高其负载均衡的能力，降低模块与模块之间的耦合性。最终，使用了字节跳动自主研发的kitex框架，结合Go语言HTTP框架Gin和Go语言ORM框架Gorm，
 
 ## 一、项目架构如下
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/kitexdousheng.jpg" width="500px">
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/kitexdousheng_uml0729.jpg" width="500px">
 
 ## 二、数据库E-R图
 <img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/er.jpg" width="800px">
