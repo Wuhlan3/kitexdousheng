@@ -78,7 +78,10 @@ CMD cd /kitexdousheng/cmd/api && sh run.sh
 ## 七、jeager使用方法
 在浏览器访问http://127.0.0.1:16686/
 
-## 八、项目亮点
+## 八、测试
+使用火焰图来查看全局的CPU、内存使用情况。具体过程可以参考
+之后还会使用postman/Apifox进行压力测试，以便查看各个接口的性能。
+## 九、项目亮点
 - 对密码进行加密，使用jwt鉴权
 - 将视频上传到腾讯云cos存储桶，便于管理，提供传输效率
 - 使用ffmpeg截取视频的封面
@@ -86,12 +89,12 @@ CMD cd /kitexdousheng/cmd/api && sh run.sh
 - 添加cpu限制，增加熔断报警
 - 使用Redis缓存，提高系统并发量；
 
-## 九、提高方向
+## 十、提高方向
 - 考虑负载均衡等问题；
 - 参数校验完善；
 - 考虑消息队列的使用
 
-## 十、References
+## 十一、References
 [1] https://www.cloudwego.io/zh/docs/kitex/getting-started/
 
 [2] https://github.com/cloudwego/kitex-examples/tree/main/bizdemo/easy_note
