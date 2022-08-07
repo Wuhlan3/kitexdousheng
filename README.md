@@ -89,7 +89,7 @@ CMD cd /kitexdousheng/cmd/api && sh run.sh
 - 使用ffmpeg截取视频的封面
 - 使用jaeger进行链路追踪
 - 添加cpu限制，增加熔断报警
-- 使用Redis缓存，提高系统并发量；
+- 使用Redis缓存，减少访问数据库的次数；
 
 ## 十、提高方向
 - 考虑负载均衡等问题；
