@@ -81,7 +81,7 @@ CMD cd /kitexdousheng/cmd/api && sh run.sh
 ## 八、测试
 使用火焰图来查看全局的CPU、内存使用情况。具体过程可以参考https://wuhlan3.gitee.io/wuhlan3/2022/07/31/pprof性能分析/
 
-之后还会使用postman/Apifox进行压力测试，以便查看各个接口的性能。
+通过jeager辅助调试和排查性能问题。
 
 ## 九、项目亮点
 - 对密码进行加密，使用jwt鉴权
