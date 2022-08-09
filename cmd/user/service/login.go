@@ -39,14 +39,14 @@ func (f *UserLoginFlow) checkParam() error {
 }
 
 func (f *UserLoginFlow) login() (int64, error) {
-	user, err := db.NewUserDaoInstance().QueryUserByName(f.name)
-	if err != nil || user == nil {
+	tempUser, err := db.NewUserDaoInstance().QueryUserByName(f.name)
+	if err != nil || tempUser == nil {
 		return 0, errors.New("用户不存在")
 	}
-	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(f.password))
+	err = bcrypt.CompareHashAndPassword([]byte(tempUser.Password), []byte(f.password))
 	if err != nil {
 		return 0, errors.New("密码错误")
 	}
 
-	return user.Id, nil
+	return tempUser.Id, nil
 }
