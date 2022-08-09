@@ -17,7 +17,7 @@
 
 ## 一、项目架构如下
 
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/kitexdousheng0729.jpg" width="480px">
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/kitexdousheng08092316.jpg" width="450px">
 
 ## 二、数据库E-R图
 
