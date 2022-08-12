@@ -10,7 +10,7 @@
 [![ETCD](https://img.shields.io/badge/ETCD-v0.0.0-orange)](https://github.com/kitex-contrib/registry-etcd)
 [![Jaeger](https://img.shields.io/badge/Jaeger-v2.30.0-blue)](https://github.com/jaegertracing/jaeger-client-go)
 [![JWT](https://img.shields.io/badge/JWT-v3.2.0-green)](https://github.com/golang-jwt/jwt)
-[![ffmpeg](https://img.shields.io/badge/ffmpeg-v0.4.1-orange)](https://github.com/u2takey/ffmpeg-go)
+[![ffmpeg](https://img.shields.io/badge/ffmpeg-v3.1-orange)](https://github.com/u2takey/ffmpeg-go)
 [![MySQL](https://img.shields.io/badge/MySQL-v5.7-green)](https://www.mysql.com/)
 [![Redis](https://img.shields.io/badge/Redis-v6.2.6-orange)](https://redis.io/)
 
