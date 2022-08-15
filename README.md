@@ -10,14 +10,14 @@
 [![ETCD](https://img.shields.io/badge/ETCD-v0.0.0-orange)](https://github.com/kitex-contrib/registry-etcd)
 [![Jaeger](https://img.shields.io/badge/Jaeger-v2.30.0-blue)](https://github.com/jaegertracing/jaeger-client-go)
 [![JWT](https://img.shields.io/badge/JWT-v3.2.0-green)](https://github.com/golang-jwt/jwt)
-[![ffmpeg](https://img.shields.io/badge/ffmpeg-v0.4.1-orange)](https://github.com/u2takey/ffmpeg-go)
+[![ffmpeg](https://img.shields.io/badge/ffmpeg-v3.1-orange)](https://github.com/u2takey/ffmpeg-go)
 [![MySQL](https://img.shields.io/badge/MySQL-v5.7-green)](https://www.mysql.com/)
 [![Redis](https://img.shields.io/badge/Redis-v6.2.6-orange)](https://redis.io/)
 
 
 ## 一、项目架构如下
 
-<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/kitexdousheng0729.jpg" width="480px">
+<img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/kitexdousheng08092316.jpg" width="450px">
 
 ## 二、数据库E-R图
 
