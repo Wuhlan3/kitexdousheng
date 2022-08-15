@@ -32,6 +32,7 @@ feed即用户在刷视频过程中请求的接口，响应的是视频相关数�
 
 <img src="https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/dousheng_feed.jpg" width="700px">
 
+经过测试，使用Redis后，响应速度从98ms提升到55ms。
 
 ## 四、运行方法
 ```
@@ -97,18 +98,22 @@ CMD cd /kitexdousheng/cmd/api && sh run.sh
 ## 七、jeager使用方法
 在浏览器访问http://127.0.0.1:16686/
 
+![jeager](https://wuhlan3-1307602190.cos.ap-guangzhou.myqcloud.com/img/Snipaste_2022-08-15_11-56-57.jpg)
+
 ## 八、测试
 
 ### 8.1 单元测试
-还在完善当中...
+- 可以参考我们的Apifox文档 https://www.apifox.cn/apidoc/shared-b0f7a1d0-d9b5-4f01-af65-8876a319fc0b
 
-在每一个小的功能模块中，有相应的test文件。通过`go test .`可以来测试该模块是否正确。
+- 另外，在每一些小的功能模块中，有相应的test文件。通过`go test .`可以来测试该模块是否正确。
 
 ### 8.2 性能测试
 
-使用火焰图来查看全局的CPU、内存使用情况。具体过程可以参考https://wuhlan3.gitee.io/wuhlan3/2022/07/31/pprof性能分析/
+- 使用火焰图来查看全局的CPU、内存使用情况。具体过程可以参考https://wuhlan3.gitee.io/wuhlan3/2022/07/31/pprof性能分析/
 
-通过jeager辅助调试和排查性能问题。
+- 通过jeager辅助调试和排查性能问题。
+
+- 使用Apifox来进行压力测试。
 
 ## 九、项目亮点
 - 对密码进行加密，使用jwt鉴权

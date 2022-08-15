@@ -24,7 +24,12 @@ import (
 )
 
 func InitJaeger(service string) {
-	cfg, _ := jaegercfg.FromEnv()
+	cfg, err := jaegercfg.FromEnv()
+	if cfg == nil {
+		panic(fmt.Sprintf("Error: jaegercfg fromenv %v\n",err))
+		return
+	}
+
 	cfg.ServiceName = service
 	tracer, _, err := cfg.NewTracer(jaegercfg.Logger(jaeger.StdLogger))
 	if err != nil {
