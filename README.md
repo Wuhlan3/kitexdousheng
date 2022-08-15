@@ -103,13 +103,13 @@ CMD cd /kitexdousheng/cmd/api && sh run.sh
 ## 八、测试
 
 ### 8.1 单元测试
-- 可以参考我们的Apifox文档 https://www.apifox.cn/apidoc/shared-b0f7a1d0-d9b5-4f01-af65-8876a319fc0b
+- 可以参考我们的[Apifox文档](https://www.apifox.cn/apidoc/shared-b0f7a1d0-d9b5-4f01-af65-8876a319fc0b)
 
 - 另外，在每一些小的功能模块中，有相应的test文件。通过`go test .`可以来测试该模块是否正确。
 
 ### 8.2 性能测试
 
-- 使用火焰图来查看全局的CPU、内存使用情况。具体过程可以参考https://wuhlan3.gitee.io/wuhlan3/2022/07/31/pprof性能分析/
+- 使用火焰图来查看全局的CPU、内存使用情况。具体过程可以参考[pprof性能分析](https://wuhlan3.gitee.io/wuhlan3/2022/07/31/pprof性能分析/)
 
 - 通过jeager辅助调试和排查性能问题。
 
